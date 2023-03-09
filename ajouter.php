@@ -3,7 +3,6 @@ include_once 'includes/dbh.inc.php';
 session_start();
 error_reporting(E_ERROR|E_PARSE);
 $idCl = $_SESSION["Id"];
-echo "Client Num:" . $idCl . "<br>";
 
 if (isset($_POST['ajouter'])) {
     $titre = $_POST["titre"];
@@ -17,7 +16,7 @@ if (isset($_POST['ajouter'])) {
     $file_count = count($_FILES['images']['name']);
 
     if (strlen($titre) < 200 && strlen($ville) > 3  && strlen($add) > 3 && $sup > 0 && $montant > 0) {
-        $requeteAjout = "INSERT INTO annonce(Titre,Prix,Date_pub,Adresse, Superficie,ville,categorie,type,Id_cl) VALUES ('$titre','$montant', '$date','$add', '$sup', '$ville', '$categorie' , '$type',$idCl)";
+        $requeteAjout = "INSERT INTO annonce(Titre,Prix,Date_pub,Adresse, Superficie,ville,categorie,type,Id_cl) VALUES ('$titre','$montant', '$date','$add', '$sup', '$ville', '$categorie' ,'$type' ,$idCl)";
         $RequetAjoutAnnonce = mysqli_query($connect, $requeteAjout);
         $idderniereligne = $connect->insert_id;
 
@@ -44,7 +43,7 @@ if (isset($_POST['ajouter'])) {
 }
 
 ?>
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -111,16 +110,16 @@ include('./Nav2.php');
 
 
             <div class="user-box  my-3 ">
-                <select class='form-select  bg-dark text-info' aria-label='categorie' id='categorie' name='categorie' required>
-                    <option value="Selectionnez un choix">Selectionnez un choix</option>
+                <select class='form-select  bg-dark text-info' aria-label='type' id='Type' name='type' required>
+                    <option value="Selectionnez un type">Selectionnez un type</option>
                     <option value='Location'>Location</option>
                     <option value='Vente'>Vente</option>
                 </select>
             </div>
 
             <div class="user-box my-3 position-relative">
-                <select class='form-select  bg-dark text-info' aria-label='type' id='Type' name='type' required>
-                    <option value="Selectionnez un choix">Selectionnez un choix</option>
+                <select class='form-select  bg-dark text-info' aria-label='categorie' id='categorie' name='categorie' required>
+                    <option value="Selectionnez une categorie">Selectionnez une categorie</option>
                     <option>Maison</option>
                     <option>Villa</option>
                     <option>Bureau</option>

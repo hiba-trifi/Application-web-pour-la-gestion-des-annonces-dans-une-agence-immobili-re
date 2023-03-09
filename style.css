@@ -174,20 +174,3 @@ margin-top: 30%; */
   }
   
 
-  
-.price {
-  color: rgba(0, 0, 0, 0.6);
-  background-color: #ffe68b;
-  display: block;
-  width: 80px;
-  padding: 10px 5px 10px 0px;
-  position: absolute;
-  right: 20px;
-  bottom: 15px;
-  text-align: right;
-  font-family: courier;
-  border-radius: 2px;
-  filter: drop-shadow(1px 1px 0.8px rgba(0, 0, 0, 0.2));
-  transform: rotateZ(-5deg) scale(1);
-  transition: all 0.5s ease;
-}

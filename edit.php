@@ -47,26 +47,32 @@ include('./Nav2.php');
         // $Date_pub = $_POST['Date_pub'];
         $type = $_POST['type'];
         $categorie = $_POST['categorie'];
-        $file_count = count($_FILES['images']['name']);
+        // $file_count = count($_FILES['images']['name']);
 
         $edit = mysqli_query($connect, "UPDATE annonce SET categorie = '$categorie' , type = '$type', ville = '$ville',Date_mod = '$currentDateTime', Adresse = '$Adresse' , Superficie = '$Superficie', Titre = '$Titre', Prix = '$Prix'  WHERE Id_ac = '$id_ac'");
+      
+        if(isset($_FILES['images']) && !empty($_FILES['images']['name'][0])) {
+       
+          $file_count = count($_FILES['images']['name']);
+          for ($i = 0; $i < $file_count; $i++) {
+            $file_name = $_FILES['images']['name'][$i];
+            $file_tmp = $_FILES['images']['tmp_name'][$i];
+  
+            // Generer un unique nom d'image
+            $ImgRandom = time() . "-" . $file_name;
+            $new_file_path = "./img/" . $ImgRandom;
+            $id_ac = $_POST['id_ac'];
+            // Stocker le fichier téléchargé
+            move_uploaded_file($file_tmp, $new_file_path);
+  
+            $requeteAjoutImg = "INSERT INTO `image` (`Titre_img`, `img_Principale`,`Id_ac`) VALUES ('$ImgRandom',b'0','$id_ac')";
+            $RequetAjoutClient = mysqli_query($connect, $requeteAjoutImg);
           
-        if (isset($_POST['images'])) {         
-        for ($i = 0; $i < $file_count; $i++) {
-          $file_name = $_FILES['images']['name'][$i];
-          $file_tmp = $_FILES['images']['tmp_name'][$i];
-
-          // Generer un unique nom d'image
-          $ImgRandom = time() . "-" . $file_name;
-          $new_file_path = "./img/" . $ImgRandom;
-          $id_ac = $_POST['id_ac'];
-          // Stocker le fichier téléchargé
-          move_uploaded_file($file_tmp, $new_file_path);
-
-          $requeteAjoutImg = "INSERT INTO `image` (`Titre_img`, `img_Principale`,`Id_ac`) VALUES ('$ImgRandom',b'0','$id_ac')";
-          $RequetAjoutClient = mysqli_query($connect, $requeteAjoutImg);
+          }
         }
-       }
+      
+
+
         header('location:./profile.php');
       }
       
